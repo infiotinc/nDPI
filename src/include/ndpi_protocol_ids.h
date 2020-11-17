@@ -280,6 +280,14 @@ typedef enum {
   NDPI_PROTOCOL_TARGUS_GETDATA        = 243,
   NDPI_PROTOCOL_DNP3                  = 244,
   NDPI_PROTOCOL_104                   = 245,    
+
+
+/* Custom added applications */
+  NDPI_PROTOCOL_MITEL                 = 503, /* Mitel Connect */
+  NDPI_PROTOCOL_RINGCENTRAL           = 504, /* Ring Central */
+  NDPI_PROTOCOL_FIVE9                 = 505, /* Five9 */
+
+
 /*
     IMPORTANT
     before allocating a new identifier please fill up
