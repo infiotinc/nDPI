@@ -280,6 +280,16 @@ typedef enum {
   NDPI_PROTOCOL_TARGUS_GETDATA        = 243,
   NDPI_PROTOCOL_DNP3                  = 244,
   NDPI_PROTOCOL_104                   = 245,    
+
+
+/* Custom infapps should start from ID 400 */
+  NDPI_PROTOCOL_INFAPPS_START_PREV   = 399, /* next added infapps will be 400 */
+/* NOTE: we already start from 500 for protocol specific apps like TCP/UDP
+ * so the custom infapps should be from 400-500 for now
+ * these custom infapps are added using protocol files to ndpi library
+ */
+
+
 /*
     IMPORTANT
     before allocating a new identifier please fill up
