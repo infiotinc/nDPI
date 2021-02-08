@@ -178,7 +178,7 @@ void SHA1Init(SHA1_CTX* context)
 
 /* Run your data through this. */
 
-void SHA1Update(SHA1_CTX* context, const unsigned char* data, u_int32_t len)
+void NDPI_SHA1Update(SHA1_CTX* context, const unsigned char* data, u_int32_t len)
 {
 u_int32_t i;
 u_int32_t j;
@@ -203,7 +203,7 @@ u_int32_t j;
 
 /* Add padding and return the message digest. */
 
-void SHA1Final(unsigned char digest[20], SHA1_CTX* context)
+void NDPI_SHA1Final(unsigned char digest[20], SHA1_CTX* context)
 {
 unsigned i;
 unsigned char finalcount[8];
@@ -232,12 +232,12 @@ unsigned char c;
     }
 #endif
     c = 0200;
-    SHA1Update(context, &c, 1);
+    NDPI_SHA1Update(context, &c, 1);
     while ((context->count[0] & 504) != 448) {
 	c = 0000;
-        SHA1Update(context, &c, 1);
+        NDPI_SHA1Update(context, &c, 1);
     }
-    SHA1Update(context, finalcount, 8);  /* Should cause a SHA1Transform() */
+    NDPI_SHA1Update(context, finalcount, 8);  /* Should cause a SHA1Transform() */
     for (i = 0; i < 20; i++) {
         digest[i] = (unsigned char)
          ((context->state[i>>2] >> ((3-(i & 3)) * 8) ) & 255);
@@ -263,8 +263,8 @@ main(int argc, char **argv)
 
     SHA1Init(&ctx);
     for(i=0;i<1000;i++)
-        SHA1Update(&ctx, buf, BUFSIZE);
-    SHA1Final(hash, &ctx);
+        NDPI_SHA1Update(&ctx, buf, BUFSIZE);
+    NDPI_SHA1Final(hash, &ctx);
 
     printf("SHA1=");
     for(i=0;i<20;i++)
