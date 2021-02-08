@@ -717,6 +717,12 @@ int getTLScertificate(struct ndpi_detection_module_struct *ndpi_struct,
 /* See https://blog.catchpoint.com/2017/05/12/dissecting-tls-using-wireshark/ */
 int getSSCertificateFingerprint(struct ndpi_detection_module_struct *ndpi_struct,
 				struct ndpi_flow_struct *flow) {
+
+
+  /* Disabling getting the certificate fingerprint */
+  printf("[TLS] Skip getSSCertificateFingerprint() for now\n");
+  return (1); /* Refer #8002 for more details */
+
   struct ndpi_packet_struct *packet = &flow->packet;
   u_int8_t multiple_messages;
 
@@ -757,14 +763,15 @@ int getSSCertificateFingerprint(struct ndpi_detection_module_struct *ndpi_struct
     printf("\n");
 #endif
     
-    SHA1Update(flow->l4.tcp.tls_srv_cert_fingerprint_ctx,
+
+    NDPI_SHA1Update(flow->l4.tcp.tls_srv_cert_fingerprint_ctx,
 	       &packet->payload[flow->l4.tcp.tls_record_offset],
 	       avail);
       
     flow->l4.tcp.tls_fingerprint_len -= avail;
       
     if(flow->l4.tcp.tls_fingerprint_len == 0) {
-      SHA1Final(flow->l4.tcp.tls_sha1_certificate_fingerprint, flow->l4.tcp.tls_srv_cert_fingerprint_ctx);
+      NDPI_SHA1Final(flow->l4.tcp.tls_sha1_certificate_fingerprint, flow->l4.tcp.tls_srv_cert_fingerprint_ctx);
 
 #ifdef DEBUG_TLS
       {
