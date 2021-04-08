@@ -720,7 +720,7 @@ int getSSCertificateFingerprint(struct ndpi_detection_module_struct *ndpi_struct
 
 
   /* Disabling getting the certificate fingerprint */
-  printf("[TLS] Skip getSSCertificateFingerprint() for now\n");
+  //printf("[TLS] Skip getSSCertificateFingerprint() for now\n");
   return (1); /* Refer #8002 for more details */
 
   struct ndpi_packet_struct *packet = &flow->packet;
